@@ -104,6 +104,7 @@
 int main() {
     //    test();
 
+
     char s[MAX_STRING_SIZE] = "abcba,abba,ftyg\0";
     int res = countPalindroms(s);
 
