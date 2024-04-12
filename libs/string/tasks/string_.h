@@ -41,6 +41,7 @@ typedef struct BagOfWords {
     size_t size;
 } BagOfWords;
 
+
 void removeNonLetters(char *s);
 
 void assertString(const char *expected, char *got, char const *fileName, char const *funcName, int line);
@@ -64,5 +65,10 @@ int isOrdered(char *source);
 
 void getBagOfWords(BagOfWords *bag, char *s);
 void printBagOfWordsReverse(BagOfWords *bag);
+
+void printWord(const WordDescriptor *word);
+void clearBagOfWords(BagOfWords *bag);
+
+int countPalindroms(char *s);
 
 #endif //LAB_STRING__H

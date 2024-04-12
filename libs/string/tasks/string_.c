@@ -4,6 +4,10 @@
 #include <memory.h>
 #include "string_.h"
 
+char _stringBuffer[MAX_STRING_SIZE + 1];
+BagOfWords _bag;
+BagOfWords _bag2;
+
 size_t strlen_(char *begin) {
     char *end = begin;
     while (*end != '\0')
@@ -26,6 +30,35 @@ char* findNonSpace(char *begin) {
     while (*ptr != '\0') {
         int res = 0;
         res = isspace(*ptr);
+        if (!res) {
+            return ptr;
+        }
+
+        ptr += sizeof(char);
+    }
+    return ptr;
+}
+char* findComma(char *begin) {
+    char *ptr = begin;
+
+    while (*ptr != '\0') {
+        int res = 0;
+        res = *ptr == ',';
+        if (res) {
+            return ptr;
+        }
+
+        ptr += sizeof(char);
+    }
+    return ptr;
+}
+
+char* findNonComma(char *begin) {
+    char *ptr = begin;
+
+    while (*ptr != '\0') {
+        int res = 0;
+        res = *ptr == ',';
         if (!res) {
             return ptr;
         }
@@ -144,7 +177,6 @@ char* copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDesti
 }
 
 //---------------------------------------------------------------------------------------------------------------
-char _stringBuffer[MAX_STRING_SIZE + 1];
 
 char* getEndOfString(const char *begin) {
     char *end = begin;
@@ -181,6 +213,13 @@ int getWord(char *beginSearch, WordDescriptor *word) {
     if (*word->begin == '\0')
         return 0;
     word->end = findSpace(word->begin);
+    return 1;
+}
+int getWordByComma(char *beginSearch, WordDescriptor *word) {
+    word->begin = findNonComma(beginSearch);
+    if (*word->begin == '\0')
+        return 0;
+    word->end = findComma(word->begin);
     return 1;
 }
 
@@ -333,10 +372,43 @@ void getBagOfWords(BagOfWords *bag, char *s) {
 }
 
 void printBagOfWordsReverse(BagOfWords *bag) {
-    for (int i = bag->size - 1; i >= 0; i--) {
-        for (char *j = bag->words[i].begin; j <= bag->words[i].end; j++) {
-            printf("%c", j);
-        }
-        printf("\n");
+    const int i;
+    printWord(&bag->words[i]);
+}
+
+void clearBagOfWords(BagOfWords *bag) {
+    bag->size = 0;
+}
+
+void printWord(const WordDescriptor *word) {
+    for (char *j = word->begin; j < word->end; j++) {
+        printf("%c", *j);
     }
+    printf("\n");
+}
+
+int countPalindroms(char *s) {
+    WordDescriptor wordRes;
+
+    int counter = 0;
+
+    while (getWordByComma(s, &wordRes)) {
+        s = wordRes.end;
+        unsigned long len = wordRes.end - wordRes.begin;
+        int is_polyndrom = 1;
+        wordRes.end -= sizeof(char);
+
+        for (int i = 0; i < len / 2; i++) {
+            if (*wordRes.begin != *wordRes.end) {
+                is_polyndrom = 0;
+                break;
+            }
+            wordRes.begin += sizeof(char);
+            wordRes.end -= sizeof(char);
+        }
+        counter += is_polyndrom;
+
+
+    }
+    return counter;
 }
