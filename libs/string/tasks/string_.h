@@ -25,22 +25,38 @@ typedef struct BagOfWords {
     size_t size;
 } BagOfWords;
 void removeNonLetters(char *s);
+
 void assertString(const char *expected, char *got, char const *fileName, char const *funcName, int line);
+
 void removeAdjacentEqualLetters(char *s);
+
 int getWord(char *beginSearch, WordDescriptor *word);
+
 void digitInWordShift(WordDescriptor word);
+
+
 void wordInStringProcessor(char *beginString, void(*f)(WordDescriptor));
+
 void digitToStart(WordDescriptor word);
+
 ///
 void numToSpace(char *source);
+
 int findWord(char *beginSearch, WordDescriptor *patternWord, WordDescriptor *resWord);
 void replace(char *source, char *w1, char *w2);
+
 int isOrdered(char *source);
+
 void getBagOfWords(BagOfWords *bag, char *s);
+
 void printBagOfWordsReverse(BagOfWords *bag);
+
 void printWord(const WordDescriptor *word);
+
 void clearBagOfWords(BagOfWords *bag);
 
 int countPalindroms(char *s);
+
+void getMixedString(char *res, char *s1, char *s2);
 
 #endif //LAB_STRING__H
