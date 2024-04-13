@@ -1,7 +1,9 @@
-#ifndef LAB_STRING__H
-#define LAB_STRING__H
+#ifndef INC_STRING__H
+#define INC_STRING__H
 
 # include <stdint.h>
+
+#define ASSERT_STRING(expected, got) assertString(expected, got, __FILE__, __FUNCTION__, __LINE__)
 
 size_t strlen_(char *s);
 
@@ -11,9 +13,9 @@ char* findNonSpace(char *begin);
 
 char* findSpace(char *begin);
 
-char* findNonSpaceReverse(char *rbegin, const char *rend);
+char* findNonSpaceReverse(char *rbegin, char *rend);
 
-char* findSpaceReverse(char *rbegin, const char *rend);
+char* findSpaceReverse(char *rbegin, char *rend);
 
 int strcmp_(const char *lhs, const char *rhs);
 
@@ -41,6 +43,18 @@ typedef struct BagOfWords {
     WordDescriptor words[MAX_N_WORDS_IN_STRING];
     size_t size;
 } BagOfWords;
+
+typedef enum WordBeforeFirstWordWithAReturnCode {
+    FIRST_WORD_WITH_A,
+    NOT_FOUND_A_WORD_WITH_A,
+    WORD_FOUND,
+    EMPTY_STRING
+} WordBeforeFirstWordWithAReturnCode;
+
+extern char _stringBuffer[MAX_STRING_SIZE + 1];
+extern BagOfWords _bag;
+extern BagOfWords _bag2;
+
 void removeNonLetters(char *s);
 
 void assertString(const char *expected, char *got, char const *fileName, char const *funcName, int line);
@@ -52,11 +66,13 @@ int getWord(char *beginSearch, WordDescriptor *word);
 void digitInWordShift(WordDescriptor word);
 
 
+void digitToStart(WordDescriptor word);
 void wordInStringProcessor(char *beginString, void(*f)(WordDescriptor));
 
-void digitToStart(WordDescriptor word);
+void digitInWordShift2(WordDescriptor word);
+void digitToEnd(WordDescriptor word);
+void wordInStringProcessor2(char *beginString, void(*f)(WordDescriptor));
 
-///
 void numToSpace(char *source);
 
 int findWord(char *beginSearch, WordDescriptor *patternWord, WordDescriptor *resWord);
@@ -79,4 +95,9 @@ void getMixedString(char *res, char *s1, char *s2);
 
 void stringReverse(char *s);
 
-#endif //LAB_STRING__H
+void printWordBeforeFirstWordWithA (char *s);
+WordBeforeFirstWordWithAReturnCode getWordBeforeFirstWordWithA(char *source, WordDescriptor *w);
+
+void assertString(const char *expected, char *got,char const *fileName, char const *funcName, int line) ;
+
+#endif //INC_STRING__H
