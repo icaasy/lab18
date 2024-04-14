@@ -3,8 +3,6 @@
 
 # include <stdint.h>
 
-#define ASSERT_STRING(expected, got) assertString(expected, got, __FILE__, __FUNCTION__, __LINE__)
-
 size_t strlen_(char *s);
 
 char* find(char *begin, char *end, int ch);
