@@ -110,4 +110,6 @@ void getStringWithoutEndWords(char *s);
 
 int findWordBefore(char *s1, char *s2, char *res);
 
+void deletePalindromes(char *s);
+
 #endif //INC_STRING__H
