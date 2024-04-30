@@ -114,4 +114,12 @@ void appendMissingWords(char *s1, char *s2);
 
 int isStringIncludeLetters(char *s, char *word);
 
+char* findNonSpaceReverse(char *rbegin, const char *rend);
+
+int compareLetters(const void* charPtr1, const void* charPtr2);
+
+int isPatternInWord(WordDescriptor word, const char* pattern);
+
+int compareWordDescriptorsByLen(const void *wordPtr1, const void *wordPtr2);
+
 #endif //INC_STRING__H
